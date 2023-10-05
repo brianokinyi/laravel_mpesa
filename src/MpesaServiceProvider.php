@@ -2,8 +2,8 @@
 
 namespace Gathuku\Mpesa;
 
-use Illuminate\Support\ServiceProvider;
 use Gathuku\Mpesa\Console\InstallMpesa;
+use Illuminate\Support\ServiceProvider;
 
 class MpesaServiceProvider extends ServiceProvider
 {
@@ -14,15 +14,10 @@ class MpesaServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
-        // require __DIR__.'/routes/web.php';
-        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
-
         if ($this->app->runningInConsole()) {
             //publish the config files
             $this->publishes([
-              __DIR__.'/../config/mpesa.php' => config_path('mpesa.php'),
+              __DIR__.'/../config/daraja.php' => config_path('daraja.php'),
           ], 'mpesa-config');
 
             // Register commands
@@ -39,7 +34,7 @@ class MpesaServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/mpesa.php', 'mpesa');
+        $this->mergeConfigFrom(__DIR__.'/../config/daraja.php', 'mpesa');
 
         $this->app->bind('gathuku-mpesa', function () {
             return new Mpesa();
